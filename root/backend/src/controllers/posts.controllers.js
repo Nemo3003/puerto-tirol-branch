@@ -1,42 +1,34 @@
-
 const Post = require('../models/posts.model');
 
-//-***********************************************************************************************
-
+// See all posts
 const getAllPosts = async (req, res) => {
   try {
-    Post.find({}, function (err, Posts) {
-      let PostMap = {};
-      Posts.forEach(function (Post) {
-        PostMap[Post._id] = Post;
-      });
-      res.status(200).json(PostMap);
-    }).lean().sort();
-  } catch (e) {
-    res.status(404).json({ error: "Posts not found" });
+    const posts = await Post.find();
+    res.status(200).json(posts);
+  } catch (err) {
+    res.status(500).json({ message: err });
   }
 };
 
-//-***********************************************************************************************
-
+// See a specific post
 const getPostById = async (req, res) => {
   try {
-    const PostFound = await Post.findById(req.params.id).sort({ date: 'desc' });
-    if (!PostFound) {
+    const postFound = await Post.findById(req.params.id).sort({ date: 'desc' });
+    if (!postFound) {
       return res.status(404).json({ error: "Post not found" });
     }
-    res.status(200).json(PostFound);
+    res.status(200).json(postFound);
   } catch (e) {
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
-//-***********************************************************************************************
-
+// Create a new post
 const createPost = async (req, res) => {
   const { title, description, type, date } = req.body;
   try {
     const newPost = new Post({ title, description, type, date });
+    
     await newPost.save();
     res.status(201).json(newPost);
   } catch (e) {
@@ -44,8 +36,7 @@ const createPost = async (req, res) => {
   }
 };
 
-//-***********************************************************************************************
-
+// Delete a post
 const deletePost = async (req, res) => {
   try {
     const deletedPost = await Post.findByIdAndDelete(req.params.id);
@@ -58,8 +49,7 @@ const deletePost = async (req, res) => {
   }
 };
 
-//-***********************************************************************************************
-
+// Update a post
 const updatePost = async (req, res) => {
   const { title, description, type, date } = req.body;
   try {
@@ -73,7 +63,6 @@ const updatePost = async (req, res) => {
   }
 };
 
-// Exports
 module.exports = {
   getAllPosts,
   getPostById,
