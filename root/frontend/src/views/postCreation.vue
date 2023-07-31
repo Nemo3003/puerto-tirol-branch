@@ -1,31 +1,45 @@
 <template>
   <div class="container mx-auto p-4">
     <h2 class="text-center mt-5 text-2xl font-semibold">Create a New Post</h2>
-    <form class="mt-4 flex flex-col">
-      <input
-        type="text"
-        placeholder="Enter Post Title"
-        v-model="postTitle"
-        class="p-2 border rounded-md"
-      />
-      <textarea
-        placeholder="Enter Post Content"
-        v-model="postContent"
-        class="p-2 mt-2 border rounded-md h-40"
-      ></textarea>
-      <!-- Add type input field -->
-      <label class="mt-2">Type:</label>
-      <select v-model="postType" class="p-2 border rounded-md">
-        <option value="announcement">Announcement</option>
-        <option value="activity">Activity</option>
-      </select>
+    <form class="mt-4 space-y-4">
+      <div class="flex flex-col">
+        <label for="postTitle" class="text-gray-600">Post Title:</label>
+        <input
+          type="text"
+          id="postTitle"
+          placeholder="Enter Post Title"
+          v-model="postTitle"
+          class="p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+        />
+      </div>
+      <div class="flex flex-col">
+        <label for="postContent" class="text-gray-600">Post Content:</label>
+        <textarea
+          id="postContent"
+          placeholder="Enter Post Content"
+          v-model="postContent"
+          class="p-2 mt-2 border rounded-md h-40 focus:outline-none focus:ring focus:border-blue-300"
+        ></textarea>
+      </div>
+      <div class="flex flex-col">
+        <label for="postType" class="text-gray-600">Type:</label>
+        <select
+          id="postType"
+          v-model="postType"
+          class="p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+        >
+          <option value="announcement">Announcement</option>
+          <option value="activity">Activity</option>
+        </select>
+      </div>
       <button
-        class="mt-4 px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600"
+        type="button"
+        class="w-full mt-4 px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 focus:outline-none"
         @click="submitPost"
       >
         Submit
       </button>
-      <p class="error-message" v-if="errorMessage">{{ errorMessage }}</p>
+      <p class="text-red-600" v-if="errorMessage">{{ errorMessage }}</p>
     </form>
 
     <!-- Here comes the table for our posts -->
@@ -67,7 +81,10 @@
   </div>
 </template>
 
+
 <script>
+import axios from "axios";
+
 export default {
   name: "PostApp",
   data() {
@@ -77,58 +94,49 @@ export default {
       postContent: "",
       postType: "announcement", // Default type
       posts: [],
+      errorMessage: "",
     };
   },
   methods: {
-    submitPost() {
+    // Your existing methods go here...
+
+    // Submit the post to the backend API
+    async submitPost() {
       if (this.postTitle.length === 0 || this.postContent.length === 0) {
         this.errorMessage = "Title and Content cannot be empty";
         return;
       }
 
-      // Check for duplicate post titles
-      const duplicatePost = this.posts.find((p) => p.title === this.postTitle);
-      if (duplicatePost) {
-        this.errorMessage = "Post title already exists";
-        return;
+      const newPost = {
+        title: this.postTitle,
+        content: this.postContent,
+        type: this.postType,
+      };
+      try {
+        const response = await axios.post("http://localhost:8080/api/create", newPost);
+        // Add the new post to the local posts array
+        this.posts.push(response.data);
+
+        this.postTitle = "";
+        this.postContent = "";
+
+        // Save posts to local storage
+        localStorage.setItem("posts", JSON.stringify(this.posts));
+      } catch (error) {
+        this.errorMessage = "Failed to create post";
       }
+    },
 
-      // Reset error message if there were no errors
-      this.errorMessage = "";
 
-      // BEGIN Check whether the user wants to edit or create a new post
-      if (this.editedPost === null) {
-        this.posts.push({
-          title: this.postTitle,
-          content: this.postContent,
-          type: this.postType, // Add the selected type to the new post
-        });
-      } else {
-        this.posts[this.editedPost].title = this.postTitle;
-        this.posts[this.editedPost].content = this.postContent;
-        this.posts[this.editedPost].type = this.postType; // Update the type in the edited post
-        this.editedPost = null;
+    // Fetch all posts from the backend API
+    async fetchPosts() {
+      try {
+        const response = await axios.get("http://localhost:8080/api/");
+        this.posts = response.data;
+        localStorage.setItem("posts", JSON.stringify(this.posts));
+      } catch (error) {
+        this.errorMessage = "Failed to fetch posts";
       }
-      // END
-
-      this.postTitle = "";
-      this.postContent = "";
-
-      // Save posts to local storage
-      localStorage.setItem("posts", JSON.stringify(this.posts));
-    },
-    editPost(index) {
-      this.postTitle = this.posts[index].title;
-      this.postContent = this.posts[index].content;
-      this.postType = this.posts[index].type; // Set the type for editing
-      this.editedPost = index;
-    },
-    deletePost(index) {
-      // Remove the post at the specified index from the posts array
-      this.posts.splice(index, 1);
-
-      // Save the updated posts array to local storage
-      localStorage.setItem("posts", JSON.stringify(this.posts));
     },
   },
   mounted() {
@@ -136,10 +144,12 @@ export default {
     if (localStorage.getItem("posts")) {
       this.posts = JSON.parse(localStorage.getItem("posts"));
     }
+
+    // Fetch posts from the backend API
+    this.fetchPosts();
   },
 };
 </script>
-
 <style>
 html {
   max-height: 100vh;
