@@ -14,35 +14,32 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
-      posts: [
-        {
-          title: "My First Post",
-          content: "This is my first post. I'm excited to start blogging!",
-        },
-        {
-          title: "My Second Post",
-          content: "This is my second post. I'm learning a lot about blogging.",
-        },
-        {
-          title: "My Third Post",
-          content: "This is my third post. I'm having a lot of fun with it.",
-        },
-        {
-          title: "My Fourth Post",
-          content: "This is my fourth post. I'm still learning a lot.",
-        },
-        {
-          title: "My Fifth Post",
-          content: "This is my fifth post. I'm starting to get the hang of it.",
-        },
-      ],
+      posts: [],
     };
+  },
+  created() {
+    this.fetchPosts();
+  },
+  methods: {
+    fetchPosts() {
+      axios
+        .get("http:localhost:8080/api/posts")
+        .then((response) => {
+          this.posts = response.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching posts:", error);
+        });
+    },
   },
 };
 </script>
+
 
 <style>
 .cards {
