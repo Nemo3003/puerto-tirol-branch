@@ -25,6 +25,7 @@
       >
         Submit
       </button>
+      <p class="error-message" v-if="errorMessage">{{ errorMessage }}</p>
     </form>
 
     <!-- Here comes the table for our posts -->
@@ -149,5 +150,9 @@ html {
 .error-message {
   color: red;
   margin-top: 10px;
+}
+
+.container {
+  max-width: 500px;
 }
 </style>
