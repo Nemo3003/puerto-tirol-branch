@@ -4,7 +4,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto mr-auto mt-2 mt-lg-0 mx-auto">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0 mx-auto">
             <!--Wherever you see a "!isLoggedIn" indicates that that will be shown only if the usuer is logged in-->
             <li class="nav-item active">
                 <router-link to="/" class="nav-link ">Home</router-link>

@@ -2,7 +2,8 @@
     <!-- Login form -->
     <div class="container p-4 col-xl-4">
        <div class="row justify-content-center">
-  
+         
+
        <h1>Log into account</h1>
        <div class="form-outline mb-4">
           <label for="Email">Email</label>
@@ -31,7 +32,7 @@
     const email = ref("");
     const password = ref("");
     const errMsg = ref("")
- 
+
     const register = ()=>{
         signInWithEmailAndPassword(getAuth(), email.value, password.value)
         // Error handling

@@ -1,38 +1,63 @@
 <template>
-  <div class="container">
-    <h2 class="text-center mt-5">Create a New Post</h2>
-    <form class="d-flex">
-      <input type="text" placeholder="Enter Post Title" v-model="postTitle" class="form-control">
-      <textarea placeholder="Enter Post Content" v-model="postContent" class="form-control"></textarea>
-      <button class="btn btn-warning rounded-0" @click="submitPost">Submit</button>
+  <div class="container mx-auto p-4">
+    <h2 class="text-center mt-5 text-2xl font-semibold">Create a New Post</h2>
+    <form class="mt-4 flex flex-col">
+      <input
+        type="text"
+        placeholder="Enter Post Title"
+        v-model="postTitle"
+        class="p-2 border rounded-md"
+      />
+      <textarea
+        placeholder="Enter Post Content"
+        v-model="postContent"
+        class="p-2 mt-2 border rounded-md h-40"
+      ></textarea>
+      <!-- Add type input field -->
+      <label class="mt-2">Type:</label>
+      <select v-model="postType" class="p-2 border rounded-md">
+        <option value="announcement">Announcement</option>
+        <option value="activity">Activity</option>
+      </select>
+      <button
+        class="mt-4 px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600"
+        @click="submitPost"
+      >
+        Submit
+      </button>
     </form>
 
-    <!--Here comes the table for our posts-->
-    <table class="table table-bordered mt-5">
+    <!-- Here comes the table for our posts -->
+    <table class="mt-5 w-full table-auto">
       <thead>
         <tr>
-          <th scope="col">Title</th>
-          <th scope="col">Content</th>
-          <th scope="col">Edit</th>
-          <th scope="col">Delete</th>
+          <th class="px-4 py-2">Title</th>
+          <th class="px-4 py-2">Content</th>
+          <th class="px-4 py-2">Type</th>
+          <th class="px-4 py-2">Edit</th>
+          <th class="px-4 py-2">Delete</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(post, index) in posts" :key="index">
-          <th>
-            <span class="pointer">{{ post.title }}</span>
-          </th>
-          <td>
+          <td class="px-4 py-2">
+            <span class="cursor-pointer">{{ post.title }}</span>
+          </td>
+          <td class="px-4 py-2">
             <span>{{ post.content }}</span>
           </td>
-          <td>
-            <div class="text-center" @click="editPost(index)">
-              <span class="fa fa-pen pointer"></span>
+          <!-- Display post type in the table -->
+          <td class="px-4 py-2">
+            <span>{{ post.type }}</span>
+          </td>
+          <td class="px-4 py-2">
+            <div class="text-center cursor-pointer" @click="editPost(index)">
+              <span class="fas fa-pen"></span>
             </div>
           </td>
-          <td>
-            <div class="text-center" @click="deletePost(index)">
-              <span class="fa fa-trash pointer"></span>
+          <td class="px-4 py-2">
+            <div class="text-center cursor-pointer" @click="deletePost(index)">
+              <span class="fas fa-trash"></span>
             </div>
           </td>
         </tr>
@@ -49,6 +74,7 @@ export default {
       editedPost: null,
       postTitle: "",
       postContent: "",
+      postType: "announcement", // Default type
       posts: [],
     };
   },
@@ -74,10 +100,12 @@ export default {
         this.posts.push({
           title: this.postTitle,
           content: this.postContent,
+          type: this.postType, // Add the selected type to the new post
         });
       } else {
         this.posts[this.editedPost].title = this.postTitle;
         this.posts[this.editedPost].content = this.postContent;
+        this.posts[this.editedPost].type = this.postType; // Update the type in the edited post
         this.editedPost = null;
       }
       // END
@@ -91,6 +119,7 @@ export default {
     editPost(index) {
       this.postTitle = this.posts[index].title;
       this.postContent = this.posts[index].content;
+      this.postType = this.posts[index].type; // Set the type for editing
       this.editedPost = index;
     },
     deletePost(index) {
