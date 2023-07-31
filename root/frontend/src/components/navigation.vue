@@ -10,13 +10,13 @@
                 <router-link to="/" class="nav-link ">Home</router-link>
             </li>
             <li class=" nav-item">
+                <router-link to="/posts" class="nav-link nav-item">Posts</router-link>
+            </li>
+            <li class=" nav-item">
                 <router-link to="/todo" class="nav-link" v-if="isLoggedIn">Posts - admin</router-link>
             </li>
             <li class=" nav-item">
                 <router-link to="/about" class="nav-link nav-item">About</router-link>
-            </li>
-            <li class=" nav-item">
-                <router-link to="/posts" class="nav-link nav-item">Posts</router-link>
             </li>
             <li class=" nav-item">
                 <router-link to="/register" v-if="!isLoggedIn" class="nav-link nav-item">Register</router-link>

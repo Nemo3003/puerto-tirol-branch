@@ -1,17 +1,13 @@
 <template>
   <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-semibold mb-4">All Posts</h1>
-    <ul>
-      <li v-for="(post, index) in posts" :key="index" class="mb-4">
-        <div class="bg-white rounded-lg p-4 shadow-md">
-          <!-- Post content -->
-          <h2 class="text-xl font-semibold">{{ post.title }}</h2>
-          <p class="text-gray-700">{{ post.content }}</p>
-          <!-- Post link -->
-          <router-link :to="`/post/${index}`" class="text-blue-500 hover:underline block mt-2">
-            Read More
-          </router-link>
-        </div>
+    <h1 class="text-3xl font-semibold p-4">All Posts</h1>
+    <ul class="cards">
+      <li v-for="(post, index) in posts" :key="index" class="card">
+        <h2 class="card-title">{{ post.title }}</h2>
+        <p class="card-content">{{ post.content }}</p>
+        <router-link :to="`/post/${index}`" class="card-link">
+          Read More
+        </router-link>
       </li>
     </ul>
   </div>
@@ -19,24 +15,47 @@
 
 <script>
 export default {
-  name: "PostCreation",
   data() {
     return {
       posts: [
         {
-          title: "Sample Post 1",
-          content: "This is the content of Sample Post 1.",
+          title: "My First Post",
+          content: "This is my first post. I'm excited to start blogging!",
         },
         {
-          title: "Sample Post 2",
-          content: "This is the content of Sample Post 2.",
+          title: "My Second Post",
+          content: "This is my second post. I'm learning a lot about blogging.",
         },
         {
-          title: "Sample Post 3",
-          content: "This is the content of Sample Post 3.",
+          title: "My Third Post",
+          content: "This is my third post. I'm having a lot of fun with it.",
+        },
+        {
+          title: "My Fourth Post",
+          content: "This is my fourth post. I'm still learning a lot.",
+        },
+        {
+          title: "My Fifth Post",
+          content: "This is my fifth post. I'm starting to get the hang of it.",
         },
       ],
     };
   },
 };
 </script>
+
+<style>
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.card {
+  margin-bottom: 1rem;
+  width: 25%;
+  padding: 1rem;
+  gap: 1rem;
+}
+</style>

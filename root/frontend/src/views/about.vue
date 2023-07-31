@@ -1,22 +1,25 @@
 <template>
-  <div class="container text-center mx-auto justify-content-center mb-4 pb-5">
-    <div class="jumbotron jumbotron-fluid">
+  <div class="container text-center">
+    <div class="">
       <div class="container">
-        <h1 class="display-4">About the Web Development Project</h1>
-        <p class="lead">Creating a Web Page for the Puerto Tirol Branch of the Church of Jesus Christ of Latter-day Saints</p>
+        <h1 class="display-4 p-4">About the Web </h1>
+        <hr>
+        <p class="">Creating a Web Page for the Puerto Tirol Branch of the Church of Jesus Christ of Latter-day Saints</p>
       </div>
     </div>
 
     <!-- Purpose of the Page -->
-    <div class="container">
+    <div class="container p-4">
       <div class="row">
-        <div class="col-md-8">
+        <div class="">
           <h2>Project Proposal</h2>
+          <hr>
           <p>
             The purpose of this project is to create a functional web page for the Puerto Tirol Branch of the Church of Jesus Christ of Latter-day Saints. The web page will serve as a platform for the branch members to stay updated on branch activities and important announcements from the branch presidency, enhancing communication and engagement within the community.
           </p>
 
           <h2>Scope and Features</h2>
+          <hr>
           <p>
             The web development project will include the following features:
           </p>
@@ -56,5 +59,9 @@ body {
   max-height: 100vh;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+  
+}
+ul{
+  list-style-type: none;  
 }
 </style>

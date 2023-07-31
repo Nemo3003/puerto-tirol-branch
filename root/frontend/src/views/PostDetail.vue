@@ -37,7 +37,7 @@
   
   <style>
   html {
-    max-height: 100vh;
+    max-height: 80vh;
   }
   
   .container {

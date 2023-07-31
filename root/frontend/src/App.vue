@@ -27,5 +27,14 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  margin-bottom: 1rem;
+}
+
 
 </style>

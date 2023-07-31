@@ -1,9 +1,10 @@
 <template>
-  <section class="vh-100">
+  <section class="vh-80">
     <div class="container mx-auto">
       <div class="flex justify-center items-center h-100">
         <div class="w-full lg:w-6/12">
-          <h1 class="text-3xl font-bold">Welcome to Puerto Tirol Branch</h1>
+          <h1 class="text-3xl font-bold p-4">Welcome to Puerto Tirol Branch</h1>
+          <hr>
           <p class="mt-4">
             Discover the latest activities and announcements happening in the Puerto Tirol Branch of the Church of
             Jesus Christ of Latter-day Saints. Stay connected with the community and be part of uplifting and
@@ -16,6 +17,7 @@
     <!-- Display All Posts -->
     <div class="container mt-5">
       <h2 class="text-2xl font-bold">Upcoming Activities and Announcements</h2>
+      <hr>
       <ul class="list-reset">
         <!-- Replace this part with the actual list of activities and announcements -->
         <li>
