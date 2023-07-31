@@ -1,7 +1,10 @@
 <template>
-    <div class="container mx-auto px-4 py-8">
-      <h1 class="text-3xl font-semibold">{{ post.title }}</h1>
-      <p class="text-gray-700 mt-4">{{ post.content }}</p>
+    <div class="container mx-auto p-4">
+      <h2 class="text-center mt-5 text-2xl font-semibold">Post Detail</h2>
+      <div class="mb-4">
+        <h1 class="text-3xl font-semibold">{{ post.title }}</h1>
+      </div>
+      <p class="text-gray-700">{{ post.content }}</p>
     </div>
   </template>
   
@@ -31,4 +34,14 @@
     },
   };
   </script>
+  
+  <style>
+  html {
+    max-height: 100vh;
+  }
+  
+  .container {
+    max-width: 500px;
+  }
+  </style>
   

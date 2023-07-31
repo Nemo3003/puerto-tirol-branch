@@ -5,15 +5,18 @@
         <input
           type="text"
           v-model="editedPost.title"
-          class="p-2 border rounded-md"
+          class="p-2 border rounded-md bg-gray-100 text-gray-800"
         />
         <textarea
           v-model="editedPost.content"
-          class="p-2 mt-2 border rounded-md h-40"
+          class="p-2 mt-2 border rounded-md bg-gray-100 text-gray-800 h-40"
         ></textarea>
         <!-- Add type input field -->
         <label class="mt-2">Type:</label>
-        <select v-model="editedPost.type" class="p-2 border rounded-md">
+        <select
+          v-model="editedPost.type"
+          class="p-2 border rounded-md bg-gray-100 text-gray-800"
+        >
           <option value="announcement">Announcement</option>
           <option value="activity">Activity</option>
         </select>
@@ -102,6 +105,10 @@
   <style>
   html {
     max-height: 100vh;
+  }
+  
+  .container {
+    max-width: 500px;
   }
   </style>
   
