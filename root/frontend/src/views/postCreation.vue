@@ -61,12 +61,12 @@
           
           <div>
             <button
-              class="bg-teal-900 mb-4 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
-              type="button"
-              @click="submitPost"
-            >
-              Submit Post
-            </button>
+            class="bg-teal-900 mb-4 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+            type="button"
+            @click="submitPost"
+          >
+            {{ editingPost ? "Update Post" : "Submit Post" }}
+          </button>
             <br>
           </div>
           <p class="text-red-600" v-if="errorMessage">{{ errorMessage }}</p>
@@ -137,14 +137,25 @@ export default {
       postType: "announcement", // Default type
       posts: [],
       errorMessage: "",
+      editingPost: null,
     };
   },
   methods: {
-    // Your existing methods go here...
-
-    // Submit the post to the backend API
+    editPost(index) {
+    this.editingPost = this.posts[index];
+    this.title = this.editingPost.title;
+    this.description = this.editingPost.description;
+    this.date = this.editingPost.date;
+    this.postType = this.editingPost.type;
+  },
   // Submit the post to the backend API
 async submitPost() {
+  if (this.editingPost) {
+      // Editing an existing post
+      this.updatePost();
+    } else {
+      // Creating a new post
+    
   if (this.title.length === 0 || this.description.length === 0) {
     this.errorMessage = "Title and Content cannot be empty";
     return;
@@ -163,6 +174,7 @@ async submitPost() {
         'Content-Type': 'application/json',
       },
     });
+   
 
     if (response.status === 201) {
       // The post was created successfully
@@ -179,7 +191,7 @@ async submitPost() {
   } catch (error) {
     this.errorMessage = 'Failed to create post';
   }
-},
+}},
 
     // Fetch all posts from the backend API
     async fetchPosts() {
@@ -193,6 +205,62 @@ async submitPost() {
         this.errorMessage = response.data.error;
       }
     },
+  async updatePost() {
+  if (this.title.length === 0 || this.description.length === 0) {
+    this.errorMessage = "Title and Content cannot be empty";
+    return;
+  }
+
+  const updatedPost = {
+    _id: this.editingPost._id, // Make sure to include the _id of the post being edited
+    title: this.title,
+    description: this.description,
+    date: this.date,
+    type: this.postType,
+  };
+
+  try {
+    const response = await axios.put(
+      `http://localhost:3000/update/${this.editingPost._id}`, // Use the correct URL with the _id
+      updatedPost,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (response.status === 200) {
+      this.editingPost = null;
+      this.title = "";
+      this.description = "";
+      this.date = "";
+      this.errorMessage = "";
+      await this.fetchPosts();
+    } else {
+      this.errorMessage = response.data.error;
+    }
+  } catch (error) {
+    this.errorMessage = "Failed to update post";
+  }
+},
+
+  async deletePost(index) {
+    try {
+      const postId = this.posts[index]._id;
+      const response = await axios.delete(
+        `http://localhost:3000/delete/${postId}`
+      );
+
+      if (response.status === 200) {
+        this.posts.splice(index, 1); // Remove the deleted post from the local list
+      } else {
+        this.errorMessage = response.data.error;
+      }
+    } catch (error) {
+      this.errorMessage = "Failed to delete post";
+    }
+  },
   },
   mounted() {
     // Load posts from local storage

@@ -13,11 +13,15 @@ const getAllPosts = async (req, res) => {
 // See a specific post
 const getPostById = async (req, res) => {
   try {
-    const postFound = await Post.findById(req.params.id).sort({ date: 'desc' });
-    if (!postFound) {
+    const postFound = await Post.find({ _id: req.params.id })
+      .sort({ date: 'asc' })
+      .limit(1);
+
+    if (!postFound || postFound.length === 0) {
       return res.status(404).json({ error: "Post not found" });
     }
-    res.status(200).json(postFound);
+
+    res.status(200).json(postFound[0]);
   } catch (e) {
     res.status(500).json({ error: "Internal server error" });
   }
@@ -55,10 +59,16 @@ const deletePost = async (req, res) => {
 const updatePost = async (req, res) => {
   const { title, description, type, date } = req.body;
   try {
-    const updatedPost = await Post.findByIdAndUpdate(req.params.id, { title, description, type, date });
+    const updatedPost = await Post.findByIdAndUpdate(
+      req.params.id,
+      { title, description, type, date },
+      { new: true } // Use { new: true } to return the updated post
+    );
+
     if (!updatedPost) {
       return res.status(404).json({ error: "Post not found" });
     }
+
     res.status(200).json(updatedPost);
   } catch (e) {
     res.status(500).json({ error: "Failed to update post" });
