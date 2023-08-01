@@ -26,15 +26,17 @@ const getPostById = async (req, res) => {
 // Create a new post
 const createPost = async (req, res) => {
   const { title, description, type, date } = req.body;
+  
   try {
     const newPost = new Post({ title, description, type, date });
-    
     await newPost.save();
     res.status(201).json(newPost);
   } catch (e) {
-    res.status(500).json({ error: "Failed to create post" });
+    console.error('Error saving post:', e);
+    res.status(500).json({ error: 'Failed to create post' });
   }
 };
+
 
 // Delete a post
 const deletePost = async (req, res) => {
