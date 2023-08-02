@@ -13,34 +13,52 @@
         </div>
       </div>
     </div>
-
+    
     <!-- Display All Posts -->
-    <div class="container mt-5">
-      <h2 class="text-2xl font-bold">Upcoming Activities and Announcements</h2>
+    <div class="container mt-5 mb-4">
       <hr>
-      <ul class="list-reset">
-        <!-- Replace this part with the actual list of activities and announcements -->
-        <li>
-          <h3 class="text-xl font-bold mb-2">Activity 1</h3>
-          <p>Join us for a service project at the local orphanage this Saturday at 10 AM.</p>
-        </li>
-        <li>
-          <h3 class="text-xl font-bold mb-2">Announcement 1</h3>
-          <p>The branch leadership meeting will be held on Sunday after the sacrament meeting.</p>
-        </li>
-        <li>
-          <h3 class="text-xl font-bold mb-2">Activity 2</h3>
-          <p>Come and participate in the youth fireside next week on Wednesday at 7 PM.</p>
-        </li>
-        <!-- Add more activities and announcements as needed -->
-      </ul>
+    <h2 class="text-2xl font-bold">Latest Entries</h2>
+    <div class="pb-5 mb-4">
+      <div class="cards">
+      <div v-for="(post, index) in posts" :key="index" class="card">
+        <h3 class="card-title">{{ post.title }}</h3>
+        <p class="card-content">{{ post.description }}</p>
+        <router-link :to="`/post/${index}`" class="card-link">
+          Read More
+        </router-link>
+      </div>
     </div>
+    </div>
+  </div>
   </section>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  name: "HomePage",
+  data() {
+    return {
+      posts: [],
+    };
+  },
+  
+  created() {
+    this.fetchPosts();
+  },
+  methods: {
+    async fetchPosts() {
+      const response = await axios.get("http://localhost:3000/");
+
+      if (response.status === 200) {
+        // The posts were fetched successfully
+        this.posts = response.data.slice(0, 3); // Limit to the latest 3 posts
+      } else {
+        // The posts were not fetched successfully
+        this.errorMessage = response.data.error;
+      }
+    },
+  }
 };
 </script>
 
@@ -66,5 +84,34 @@ ul {
 
 li {
   margin-bottom: 1rem;
+}
+.cards {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.card {
+  width: 100%; /* Each list item should take up the full width */
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #fff;
+  margin-bottom: 1rem; 
+}
+/* Media query for two items per row */
+@media screen and (max-width: 768px) {
+  .card{
+    width: calc(50% - 1rem);
+    margin-bottom: 2rem;
+  }
+}
+
+/* Media query for one item per row */
+@media screen and (max-width: 480px) {
+  .card {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
 }
 </style>

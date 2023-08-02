@@ -18,6 +18,7 @@
               type="text"
               v-model="title"
               placeholder="Post Title"
+              required
             />
           </div>
           <div>
@@ -30,6 +31,7 @@
               v-model="description"
               placeholder="Enter Post Content"
               class="shadow appearance-none border rounded w-full py-4 px-5 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              required
             ></textarea>
           </div>
           <div class="m-2">
@@ -43,6 +45,8 @@
               type="text"
               v-model="date"
               placeholder="Post date"
+              @blur="validateDate"
+              required
             />
           </div>
           <div>
@@ -95,7 +99,7 @@
             <span class="cursor-pointer">{{ post.title }}</span>
           </td>
           <td class="px-4 py-2">
-            <span>{{ post.description }}</span>
+            <span>{{ truncateDescription(post.description) }}</span>
           </td>
           <!-- Display post type in the table -->
           <td class="px-4 py-2">
@@ -126,8 +130,10 @@
 <script>
 import axios from "axios";
 
+
 export default {
   name: "PostApp",
+
   data() {
     return {
       editedPost: null,
@@ -138,9 +144,16 @@ export default {
       posts: [],
       errorMessage: "",
       editingPost: null,
+      errorMessage: "",
     };
   },
+  
   methods: {
+    truncateDescription(description) {
+      return description.length > 20 ? description.slice(0, 20) + "..." : description;
+    },
+  
+
     editPost(index) {
     this.editingPost = this.posts[index];
     this.title = this.editingPost.title;
@@ -148,50 +161,85 @@ export default {
     this.date = this.editingPost.date;
     this.postType = this.editingPost.type;
   },
-  // Submit the post to the backend API
-async submitPost() {
-  if (this.editingPost) {
-      // Editing an existing post
-      this.updatePost();
-    } else {
-      // Creating a new post
-    
-  if (this.title.length === 0 || this.description.length === 0) {
-    this.errorMessage = "Title and Content cannot be empty";
-    return;
-  }
-
-  const newPost = {
-    title: this.title,
-    description: this.description,
-    date: this.date,
-    type: this.postType,
-  };
-
-  try {
-    const response = await axios.post('http://localhost:3000/create', newPost, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-   
-
-    if (response.status === 201) {
-      // The post was created successfully
-      this.title = "";
-      this.description = ""; // Fix: Clear the description as well
-      this.date = "";
-      this.errorMessage = ""; // Clear the error message
-      // Fetch posts again to refresh the second container
-      await this.fetchPosts();
-    } else {
-      // The post was not created successfully
-      this.errorMessage = response.data.error;
+  validateDate() {
+    // Simple date validation using regular expression
+    const dateRegex = /^\d{2}-\d{2}-\d{4}$/; // Updated date format regex
+    if (!dateRegex.test(this.date)) {
+      this.errorMessage = "Please enter a valid date in the format DD-MM-YYYY.";
+      return;
     }
-  } catch (error) {
-    this.errorMessage = 'Failed to create post';
+
+    const [day, month, year] = this.date.split("-");
+    const parsedMonth = parseInt(month, 10);
+
+    if (parsedMonth > 12) {
+      this.errorMessage = "Invalid month. Month should be between 01 and 12.";
+      return;
+    }
+
+    const isValidDate = !isNaN(Date.parse(`${year}-${month}-${day}`));
+    if (!isValidDate) {
+      this.errorMessage = "Invalid date. Please enter a valid date.";
+      return;
+    }
+
+    this.errorMessage = "";
+  },
+  // Submit the post to the backend API
+  async submitPost() {
+  if (this.editingPost) {
+    // Editing an existing post
+    this.updatePost();
+  } else {
+    // Creating a new post
+
+    // Check for title and description validity
+    if (this.title.length === 0 || this.description.length === 0) {
+      this.errorMessage = "Title and Content cannot be empty";
+      return;
+    }
+
+     // Check for date validity
+     const dateRegex = /^\d{2}-\d{2}-\d{4}$/;
+      if (!dateRegex.test(this.date)) {
+        this.errorMessage = "Please enter a valid date in the format DD-MM-YYYY.";
+        return;
+      }
+
+    this.errorMessage = "";
+
+    const newPost = {
+      title: this.title,
+      description: this.description,
+      date: this.date,
+      type: this.postType,
+    };
+
+    try {
+      const response = await axios.post('http://localhost:3000/create', newPost, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.status === 201) {
+        // The post was created successfully
+        this.title = "";
+        this.description = ""; // Fix: Clear the description as well
+        this.date = "";
+        this.errorMessage = ""; // Clear the error message
+        // Fetch posts again to refresh the second container
+        await this.fetchPosts();
+      } else {
+        // The post was not created successfully
+        this.errorMessage = response.data.error;
+      }
+    } catch (error) {
+      this.errorMessage = 'Failed to create post';
+    }
   }
-}},
+},
+
 
     // Fetch all posts from the backend API
     async fetchPosts() {
