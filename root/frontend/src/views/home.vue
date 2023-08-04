@@ -22,7 +22,7 @@
       <div class="cards">
       <div v-for="(post, index) in posts" :key="index" class="card">
         <h3 class="card-title">{{ post.title }}</h3>
-        <p class="card-content">{{ post.description }}</p>
+        <p class="card-content">{{truncateDescription(post.description) }}</p>
         <router-link :to="`/post/${post._id}`" class="post-link">
           Read More
         </router-link>
@@ -47,6 +47,9 @@ export default {
     this.fetchPosts();
   },
   methods: {
+    truncateDescription(description) {
+      return description.length > 20 ? description.slice(0, 20) + "..." : description;
+    },
     async fetchPosts() {
       const response = await axios.get("http://localhost:3000/");
 
