@@ -1,47 +1,48 @@
 <template>
-    <div class="container mx-auto p-4">
-      <h2 class="text-center mt-5 text-2xl font-semibold">Post Detail</h2>
-      <div class="mb-4">
-        <h1 class="text-3xl font-semibold">{{ post.title }}</h1>
+  <div class="min-h-screen">
+    <div class="container mx-auto px-4 pt-8 pb-16 justify-center items-center">
+      <div class="text-center">
+        <h2 class="text-3xl font-semibold mb-4">
+          {{ post.title }}
+        </h2>
+
+        <img src="../assets/activity1.jpg" alt="activity">
+        <p class="text-gray-700 mb-6">
+          {{ post.description }}
+        </p>
+        <div class="border-t pt-4">
+          <p class="text-gray-600 text-muted">
+            {{ post.date }}
+          </p>
+        </div>
       </div>
-      <p class="text-gray-700">{{ post.content }}</p>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    name: "PostDetail",
-    data() {
-      return {
-        post: null,
-      };
-    },
-    async created() {
-      // Get the post index from the route params
-      const index = this.$route.params.index;
-  
-      // Assuming you have the posts data array available in the parent component (postCreation.vue)
-      const posts = this.$parent.posts;
-  
-      // Check if the index is valid
-      if (index >= 0 && index < posts.length) {
-        this.post = posts[index];
-      } else {
-        // If the index is invalid, you can handle it here (e.g., redirect to a 404 page)
-        // For simplicity, we'll redirect back to the postCreation.vue page
-        this.$router.push("/todo");
-      }
-    },
-  };
-  </script>
-  
-  <style>
-  html {
-    max-height: 80vh;
-  }
-  
-  .container {
-    max-width: 500px;
-  }
-  </style>
-  
+  </div>
+</template>
+
+
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      post: {},
+    };
+  },
+  async created() {
+    const postId = this.$route.params.id;
+
+    try {
+      const response = await axios.get(`http://localhost:3000/post/${postId}`);
+      this.post = response.data;
+    } catch (error) {
+      console.error("Error fetching post:", error);
+    }
+  },
+};
+</script>
+
+<style scoped>
+/* Add your styling here */
+</style>

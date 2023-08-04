@@ -23,7 +23,7 @@
       <div v-for="(post, index) in posts" :key="index" class="card">
         <h3 class="card-title">{{ post.title }}</h3>
         <p class="card-content">{{ post.description }}</p>
-        <router-link :to="`/post/${index}`" class="card-link">
+        <router-link :to="`/post/${post._id}`" class="post-link">
           Read More
         </router-link>
       </div>
