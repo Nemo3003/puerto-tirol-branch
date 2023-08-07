@@ -6,7 +6,7 @@
           {{ post.title }}
         </h2>
 
-        <img src="../assets/activity1.jpg" alt="activity">
+        <img :src="getImageSource(post.type)" alt="image">
         <p class="text-gray-700 mb-6">
           {{ post.description }}
         </p>
@@ -19,7 +19,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 import axios from "axios";
@@ -38,6 +37,20 @@ export default {
       this.post = response.data;
     } catch (error) {
       console.error("Error fetching post:", error);
+    }
+  },
+  async beforeRouteUpdate(to, from, next) {
+    // Fetch the new post data when the route changes
+    await this.fetchPost();
+    next();
+  },
+  methods: {
+      getImageSource(type) {
+        if (type === "announcement") {
+          return require("../assets/announcement.jpg");
+        } else if (type === "activity") {
+          return require("../assets/activity1.jpg");
+      }
     }
   },
 };

@@ -2,12 +2,13 @@
   <div id="todo">
 
     <todo-app>
-      
+        
     </todo-app>
   </div>
 </template>
 
 <script>
+
 import TodoApp from "./components/navigation.vue";
 
 export default {
@@ -26,6 +27,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  background-image: url(./assets/background.jpg);
+  background-size: cover; /* Adjust as needed */
+  background-position: center; /* Adjust as needed */
+
 }
 .cards {
   display: flex;
