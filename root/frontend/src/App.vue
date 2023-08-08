@@ -1,25 +1,31 @@
 <template>
-  <div id="todo">
+  <div id="post">
 
-    <todo-app>
+    <post-app>
         
-    </todo-app>
+    </post-app>
   </div>
 </template>
 
 <script>
 
-import TodoApp from "./components/navigation.vue";
+import PostApp from "./components/navigation.vue";
 
 export default {
   name: "App",
   components: {
-    TodoApp
+    PostApp
   }
 };
 </script>
 
 <style>
+body{
+  background-image: url(./assets/background.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -27,9 +33,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-  background-image: url(./assets/background.jpg);
-  background-size: cover; /* Adjust as needed */
-  background-position: center; /* Adjust as needed */
+
 
 }
 .cards {

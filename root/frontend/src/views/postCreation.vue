@@ -1,9 +1,8 @@
 <template>
 
-  <div class="container p-2 max-h-[calc(100vh - 2rem)] overflow-y-auto">
-  <div class="container p-2 ">
+<div class="container p-2 max-h-[calc(100vh - 2rem)] overflow-y-auto">
+  <div class="flex container p-2">
     <h2 class="text-center mt-6 text-2xl font-semibold">Create a New Post</h2>
-
     <div class="w-full max-w-xs p-2">
       <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border border-gray-200 mt-4">
         <div class="grid grid-cols-1 gap-4">
@@ -77,12 +76,11 @@
         </div>
       </form>
     </div>
-
   </div>
-  <div class="pb-5 mb-4">
-  <div class="container p-2 mb-5 overflow-y-auto max-w-3xl mx-auto">
-    <!-- Here comes the table for our posts -->
-    <table class="mt-5 w-full table-auto border border-gray-200">
+
+  <div class="pb-5 mb-4 bg-red-800">
+      <div class="container p-2 mb-5 overflow-y-auto max-w-3xl mx-auto rounded-md">
+        <table class="mt-5 w-full table-auto border border-gray-800 bg-white">
       <thead>
         <tr>
           <th class="px-4 py-2">Title</th>
@@ -123,6 +121,9 @@
     </table>
   </div>
 </div>
+
+
+
 </div>
 
 </template>
@@ -145,6 +146,7 @@ export default {
       errorMessage: "",
       editingPost: null,
       errorMessage: "",
+
     };
   },
   
@@ -153,7 +155,9 @@ export default {
       return description.length > 20 ? description.slice(0, 20) + "..." : description;
     },
   
-
+    toggleTodoList() {
+    this.showTodoList = !this.showTodoList;
+  },
     editPost(index) {
     this.editingPost = this.posts[index];
     this.title = this.editingPost.title;
