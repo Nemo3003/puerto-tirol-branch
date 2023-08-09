@@ -6,8 +6,11 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         {path: "/", component: () => import("../views/home.vue")},
-        {path: "/todo", component: () => import("../views/postCreation.vue")},
-        {path: "/register", component: () => import("../auth/register.vue")},
+        {path: "/post-creation", component: () => import("../views/postCreation.vue"), 
+        meta:{
+          // A protected route
+          requiresAuth : true,
+      },},
         {path: "/login", component: () => import("../auth/login.vue")},
         {path: "/about", component: () => import("../views/about.vue")},
         {path: "/posts", component: () => import("../views/posts.vue")},

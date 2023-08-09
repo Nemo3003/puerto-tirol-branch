@@ -14,13 +14,10 @@
         <router-link to="/posts" class="nav-link" style="color: #FFFFFF;">Posts</router-link>
       </li>
         <li class="nav-item">
-          <router-link to="/todo" class="nav-link" style="color: #FFFFFF;">Posts - admin</router-link>
+          <router-link to="/post-creation" class="nav-link" style="color: #FFFFFF;" v-if="isLoggedIn">Posts - admin</router-link>
         </li>
         <li class="nav-item">
           <router-link to="/about" class="nav-link" style="color: #FFFFFF;">About</router-link>
-        </li>
-        <li class="nav-item" v-if="!isLoggedIn">
-          <router-link to="/register" class="nav-link" style="color: #FFFFFF;">Register</router-link>
         </li>
         <li class="nav-item" v-if="!isLoggedIn">
           <router-link to="/login" class="nav-link" style="color: #FFFFFF;">Login</router-link>
