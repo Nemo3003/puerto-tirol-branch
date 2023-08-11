@@ -48,7 +48,7 @@ export default {
   methods: {
     async fetchPosts() {
       try {
-        const response = await axios.get("http://localhost:3000/");
+        const response = await axios.get("https://puerto-tirol-branch-server.onrender.com/");
 
         if (response.status === 200) {
           // The posts were fetched successfully
