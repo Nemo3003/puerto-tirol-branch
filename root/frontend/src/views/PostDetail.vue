@@ -27,13 +27,14 @@ export default {
   data() {
     return {
       post: {},
+      
     };
   },
   async created() {
     const postId = this.$route.params.id;
 
     try {
-      const response = await axios.get(`https://puerto-tirol-branch-server.onrender.com/post/${postId}`);
+      const response = await axios.get(`http://localhost:3000/post/${postId}`);
       this.post = response.data;
     } catch (error) {
       console.error("Error fetching post:", error);

@@ -48,7 +48,7 @@ router.beforeEach(async(to,from,next)=>{
             next();
         }else{
             alert("You do not have access to this site, sign up in order to get access");
-            next("/register")
+            next("/")
         }
     }
     else{next();}

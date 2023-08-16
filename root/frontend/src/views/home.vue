@@ -1,38 +1,72 @@
 <template>
   <section class="vh-80">
-    <div class="container mx-auto">
-      <div class="flex justify-center items-center h-100">
-        <div class="w-full lg:w-6/12">
-          <h1 class="text-3xl font-bold p-4">Welcome to Puerto Tirol Branch</h1>
-          <hr>
-          <p class="mt-4">
-            Discover the latest activities and announcements happening in the Puerto Tirol Branch of the Church of
-            Jesus Christ of Latter-day Saints. Stay connected with the community and be part of uplifting and
-            meaningful events that strengthen your faith and promote service and love for others.
-          </p>
+    <br>
+    <h1 class="text-3xl font-bold">Welcome to Puerto Tirol Branch</h1>
+    <hr>
+    <div class="container grid-parent">
+      <!-- Left Column - Welcome Message -->
+      <div class="col-left p-4">
+        
+        <hr class="my-4">
+        <p>
+          Discover the latest activities and announcements happening in the Puerto Tirol Branch of the Church of
+          Jesus Christ of Latter-day Saints. Stay connected with the community and be part of uplifting and
+          meaningful events that strengthen your faith and promote service and love for others.
+        </p>
+      </div>
+
+      <!-- Right Column -->
+      <div class="col-right p-4">
+
+        <!-- Latest Activities -->
+        <div>
+          <h2 class="text-2xl font-bold">Latest Activities</h2>
+          <div class="cards">
+            <!-- Loop through activity posts -->
+            <div v-for="(activity, index) in filteredPosts('activity')" :key="index" class="card">
+              <h3 class="card-title">{{ activity.title }}</h3>
+              <p class="card-content">{{ truncateDescription(activity.description) }}</p>
+              <router-link :to="`/activity/${activity._id}`" class="activity-link">
+                Learn More
+              </router-link>
+            </div>
+          </div>
         </div>
+
+        <!-- Latest Announcements -->
+        <div>
+          <h2 class="text-2xl font-bold">Latest Announcements</h2>
+          <div class="cards">
+            <!-- Loop through announcement posts -->
+            <div v-for="(announcement, index) in filteredPosts('announcement')" :key="index" class="card">
+              <h3 class="card-title">{{ announcement.title }}</h3>
+              <p class="card-content">{{ truncateDescription(announcement.description) }}</p>
+              <router-link :to="`/announcement/${announcement._id}`" class="announcement-link">
+                Learn More
+              </router-link>
+            </div>
+          </div>
+        </div>
+   
       </div>
+      
     </div>
-    
-    <!-- Display All Posts -->
-    <div class="container mt-5 mb-4">
-      <hr>
-    <h2 class="text-2xl font-bold">Latest Entries</h2>
-    <div class="pb-5 mb-4">
-      <div class="cards">
-      <div v-for="(post, index) in posts" :key="index" class="card">
-        <h3 class="card-title">{{ post.title }}</h3>
-        <p class="card-content">{{truncateDescription(post.description) }}</p>
-        <router-link :to="`/post/${post._id}`" class="post-link">
-          Read More
-        </router-link>
-      </div>
-    </div>
-    </div>
-  </div>
+            <!-- Latest Entries -->
+      <div >
+        <h2 class="text-2xl font-bold">Latest Entries</h2>
+        <div class="cards">
+          <!-- Loop through posts -->
+          <div v-for="(post, index) in posts" :key="index" class="card">
+            <h3 class="card-title">{{ post.title }}</h3>
+            <p class="card-content">{{ truncateDescription(post.description) }}</p>
+            <router-link :to="`/post/${post._id}`" class="post-link">
+              Read More
+            </router-link>
+          </div>
+        </div>
+        </div>
   </section>
 </template>
-
 <script>
 import axios from "axios";
 
@@ -40,6 +74,7 @@ export default {
   data() {
     return {
       posts: [],
+      
     };
   },
   
@@ -47,21 +82,38 @@ export default {
     this.fetchPosts();
   },
   methods: {
+    
     truncateDescription(description) {
       return description.length > 20 ? description.slice(0, 20) + "..." : description;
     },
+    
     async fetchPosts() {
-      const response = await axios.get("https://puerto-tirol-branch-server.onrender.com/");
+  const response = await axios.get("http://localhost:3000/");
 
-      if (response.status === 200) {
-        // The posts were fetched successfully
-        this.posts = response.data.slice(0, 3); // Limit to the latest 3 posts
-      } else {
-        // The posts were not fetched successfully
-        this.errorMessage = response.data.error;
+  if (response.status === 200) {
+    // Group posts by type
+    const postsByType = {};
+    response.data.forEach(post => {
+      if (!postsByType[post.type]) {
+        postsByType[post.type] = post;
       }
+    });
+
+    // Convert the object values into an array of posts
+    this.posts = Object.values(postsByType);
+    } else {
+      // The posts were not fetched successfully
+      this.errorMessage = response.data.error;
+    }
+  },
+  },
+  computed: {
+    filteredPosts() {
+      return (type) => {
+        return this.posts.filter(post => post.type === type);
+      };
     },
-  }
+  },
 };
 </script>
 
@@ -116,5 +168,18 @@ li {
     width: 100%;
     margin-bottom: 2rem;
   }
+}
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1rem;
+}
+
+.col-left {
+  grid-column: 1 / span 1;
+}
+
+.col-right {
+  grid-column: 2 / span 1;
 }
 </style>

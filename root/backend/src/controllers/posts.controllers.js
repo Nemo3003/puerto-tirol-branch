@@ -3,7 +3,7 @@ const Post = require('../models/posts.model');
 // See all posts
 const getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find().sort({date: 'desc' });
+    const posts = await Post.find().sort({date: 'asc' });
     res.status(200).json(posts);
   } catch (err) {
     res.status(500).json({ message: err });

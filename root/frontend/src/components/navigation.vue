@@ -1,14 +1,14 @@
 <template>
   
-  <nav class="navbar text-center navbar-expand-lg navbar-light fixed-top" style="background-color: #001F3F;">
+  <nav class="navbar text-center navbar-expand-lg navbar-light fixed-top " style="background-color: #001F3F;">
     <br>
-    <button @click="isMenuCollapsed = !isMenuCollapsed" class="navbar-toggler" type="button">
+    <button @click="isMenuCollapsed = !isMenuCollapsed" class="navbar-toggler bg-white mx-3" type="button">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div :class="isMenuCollapsed ? 'collapse' : 'show'" @click.outside="isMenuCollapsed = true" class="navbar-collapse">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0 mx-auto">
       <li class="nav-item active">
-        <router-link to="/" class="nav-link" style="color: #FFFFFF;">Home</router-link>
+        <router-link to="/" class="nav-link " style="color: #FFFFFF;">Home</router-link>
       </li>
       <li class="nav-item">
         <router-link to="/posts" class="nav-link" style="color: #FFFFFF;">Posts</router-link>
