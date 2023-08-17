@@ -102,7 +102,7 @@
   };
   </script>
   
-  <style>
+  <style scoped>
   html {
     max-height: 100vh;
   }

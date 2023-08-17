@@ -2,17 +2,20 @@
   <section class="vh-80">
     <br>
     <h1 class="text-3xl font-bold">Welcome to Puerto Tirol Branch</h1>
+    
+      <p  class="mx-4 px-4">
+            Discover the latest activities and announcements happening in the Puerto Tirol Branch of the Church of
+            Jesus Christ of Latter-day Saints. Stay connected with the community and be part of uplifting and
+            meaningful events that strengthen your faith and promote service and love for others.
+      </p>
     <hr>
     <div class="container grid-parent">
       <!-- Left Column - Welcome Message -->
       <div class="col-left p-4">
         
         <hr class="my-4">
-        <p>
-          Discover the latest activities and announcements happening in the Puerto Tirol Branch of the Church of
-          Jesus Christ of Latter-day Saints. Stay connected with the community and be part of uplifting and
-          meaningful events that strengthen your faith and promote service and love for others.
-        </p>
+        <img :src="getImageSource()" alt="image">
+        <hr class="my-4">
       </div>
 
       <!-- Right Column -->
@@ -26,7 +29,7 @@
             <div v-for="(activity, index) in filteredPosts('activity')" :key="index" class="card">
               <h3 class="card-title">{{ activity.title }}</h3>
               <p class="card-content">{{ truncateDescription(activity.description) }}</p>
-              <router-link :to="`/activity/${activity._id}`" class="activity-link">
+              <router-link :to="`/post/${activity._id}`" class="activity-link">
                 Learn More
               </router-link>
             </div>
@@ -41,7 +44,7 @@
             <div v-for="(announcement, index) in filteredPosts('announcement')" :key="index" class="card">
               <h3 class="card-title">{{ announcement.title }}</h3>
               <p class="card-content">{{ truncateDescription(announcement.description) }}</p>
-              <router-link :to="`/announcement/${announcement._id}`" class="announcement-link">
+              <router-link :to="`/post/${announcement._id}`" class="announcement-link">
                 Learn More
               </router-link>
             </div>
@@ -51,24 +54,18 @@
       </div>
       
     </div>
+    <LDSLinksPage></LDSLinksPage>
             <!-- Latest Entries -->
-      <div >
-        <h2 class="text-2xl font-bold">Latest Entries</h2>
-        <div class="cards">
-          <!-- Loop through posts -->
-          <div v-for="(post, index) in posts" :key="index" class="card">
-            <h3 class="card-title">{{ post.title }}</h3>
-            <p class="card-content">{{ truncateDescription(post.description) }}</p>
-            <router-link :to="`/post/${post._id}`" class="post-link">
-              Read More
-            </router-link>
-          </div>
-        </div>
-        </div>
+    <div class="mb-4 pb-4">
+        <LatestEntriesPage></LatestEntriesPage>
+    </div>
   </section>
 </template>
 <script>
 import axios from "axios";
+import LDSLinksPage from "./Links.vue";
+import LatestEntriesPage from "./LatestEntries.vue";
+
 
 export default {
   data() {
@@ -82,7 +79,9 @@ export default {
     this.fetchPosts();
   },
   methods: {
-    
+    getImageSource() {
+      return require("../assets/faith.jpg");
+    },
     truncateDescription(description) {
       return description.length > 20 ? description.slice(0, 20) + "..." : description;
     },
@@ -114,10 +113,14 @@ export default {
       };
     },
   },
+  components: {
+    LDSLinksPage,
+    LatestEntriesPage,
+  },
 };
 </script>
 
-<style>
+<style scoped>
 html {
   max-height: fit-content;
 }

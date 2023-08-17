@@ -77,13 +77,14 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 .cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 1rem;
   gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .card {
