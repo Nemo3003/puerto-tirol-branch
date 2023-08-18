@@ -84,7 +84,7 @@ export default {
   justify-content: space-between;
   padding: 1rem;
   gap: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
 }
 
 .card {

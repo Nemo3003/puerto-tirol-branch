@@ -9,11 +9,11 @@
         <a href="https://www.comeuntochrist.org/" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline mx-4">
           ComeUntoChrist.org
         </a>
-        <a href="https://www.mormon.org/" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline mx-4">
-          Mormon.org
+        <a href="https://newsroom.churchofjesuschrist.org/" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline mx-4">
+          newsroom.churchofjesuschrist.org/
         </a>
-        <a href="https://www.lds.org/" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline mx-4">
-          LDS.org
+        <a href="https://www.churchofjesuschrist.org/study/scriptures?lang=spa&platform=web" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline mx-4">
+          Scriptures
         </a>
       </div>
       <hr>

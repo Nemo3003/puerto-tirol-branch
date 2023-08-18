@@ -1,40 +1,36 @@
 <template>
    <!-- Login form -->
-   <div>
-   <div class="p-4">
-   <div class="container p-4 col-4 bg-white rounded-md">
-      <div class="row justify-content-center ">
-        
-
-      <h1 class="text-center mb-4">Log into account</h1>
-      <div class="form-outline mb-4">
-         <label for="Email" class="text-gray-600">Email</label>
-         <input name="Email" type="text" placeholder="Email" v-model="email" class="form-control w-full">
-      </div>
-      <div class="form-outline mb-4">
-         <label for="Password" class="text-gray-600">Password</label>
-         <input name="Password" type="password" placeholder="Password" v-model="password" class="form-control w-full">
-      </div>
-      <p v-if="errMsg" class="text-red-600">{{ errMsg }}</p>
-      <p><button @click="register" class="btn btn-secondary btn-block">Submit</button></p>
-      <button @click="signInWithGoogle" type="button" class="btn btn-primary btn-floating mx-1">
-         Sign in with Google
-      </button>
+   <div class="login-container">
+     <div class="login-box">
+       <h1 class="text-center mb-4">Log into account</h1>
+       <div class="form-group">
+         <label for="email" class="text-gray-600">Email</label>
+         <input
+           id="email"
+           name="email"
+           type="text"
+           placeholder="Email"
+           v-model="email"
+           class="form-control"
+         >
+       </div>
+       <div class="form-group">
+         <label for="password" class="text-gray-600">Password</label>
+         <input
+           id="password"
+           name="password"
+           type="password"
+           placeholder="Password"
+           v-model="password"
+           class="form-control"
+         >
+       </div>
+       <p v-if="errMsg" class="error-message">{{ errMsg }}</p>
+       <button @click="register" class="btn btn-primary btn-block">Submit</button>
+       <button @click="signInWithGoogle" class="btn btn-secondary btn-block">Sign in with Google</button>
+     </div>
    </div>
-   </div>
-</div>
-<h3>Let us make something great!</h3>
-<p>"Members are the key to establishing and building up the Church. <br>
-   You and I must do everything we can to see that every member of the Church is completely fellowshipped <br>
-   and enjoying all the blessings the gospel has to offer." - Elder M. Russell Ballard</p>
-<p>"There is no greater friendshipping tool in the Church than a caring Relief Society president watching over those who have been recently baptized or reactivated. <br> 
-   That is also true of all of the elders quorum and auxiliary leaders. All members of the ward council have a vital role in member-missionary work." - Elder M. Russell Ballard</p><br>
-   <p>"My beloved brothers and sisters, may God bless you that you may be filled with the great enthusiasm that is demonstrated by our prophet.<br>
-       My humble prayer is that you will find it a great joy to follow him and do what he is asking us to do. <br>
-       I bear witness that Jesus is the Christ, the Son of the living God, and that this is His Church we are responsible for. <br>
-       I promise you that with His love and direction we can accomplish all we need to do to enhance and improve the conversion, the retention, and the activation of His precious children." - Elder M. Russell Ballard</p>
-</div>
-</template>
+ </template>
  
  <script setup>
     import {ref} from 'vue';
@@ -82,6 +78,33 @@
          })
     }
  </script>
- <style>
+<style scoped>
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
 
+.login-box {
+  padding: 20px;
+  max-width: 400px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.error-message {
+  color: #e74c3c;
+  margin-top: 10px;
+}
+
+.btn-block {
+  width: 50%;
+  margin: 10px;
+}
 </style>
