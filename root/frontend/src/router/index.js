@@ -12,6 +12,7 @@ const router = createRouter({
           requiresAuth : true,
       },},
         {path: "/login", component: () => import("../auth/login.vue")},
+        
         {path: "/about", component: () => import("../views/about.vue")},
         {path: "/posts", component: () => import("../views/posts.vue")},
         { path: "/post/:id", component: () => import("../views/PostDetail.vue")},

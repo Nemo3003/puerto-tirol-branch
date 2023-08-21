@@ -27,7 +27,6 @@
        </div>
        <p v-if="errMsg" class="error-message">{{ errMsg }}</p>
        <button @click="register" class="btn btn-primary btn-block">Submit</button>
-       <button @click="signInWithGoogle" class="btn btn-secondary btn-block">Sign in with Google</button>
      </div>
    </div>
  </template>
@@ -46,7 +45,7 @@
         signInWithEmailAndPassword(getAuth(), email.value, password.value)
         // Error handling
         .then((data) =>{
-            router.push('/todo')
+            router.push('/post-creation')
         })
         .catch((error) =>{
             console.log(error.code);

@@ -20,11 +20,8 @@ export default {
 </script>
 
 <style>
-body{
-  background-image: url(./assets/background.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+html{
+  background-color: #E8ECEF;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -33,8 +30,7 @@ body{
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-
-
+  background-color: #E8ECEF;
 }
 .cards {
   display: flex;

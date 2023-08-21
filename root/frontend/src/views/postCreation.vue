@@ -1,14 +1,14 @@
 <template>
 
-<div class="container p-2 max-h-[calc(100vh - 2rem)] overflow-y-auto">
-  <div class="flex container p-2">
-    <h2 class="text-center mt-6 text-2xl font-semibold">Create a New Post</h2>
+<div class="container p-2 max-h-[calc(100vh - 2rem)] overflow-y-auto ">
+  <div class="flex container container-post-creation mt-4 p-4 ">
+    <h2 class="text-center mt-6 text-2xl font-semibold">Crear un nuevo Post</h2>
     <div class="w-full max-w-xs p-2">
       <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border border-gray-200 mt-4">
         <div class="grid grid-cols-1 gap-4">
           <div class="m-2">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
-              Post Title
+              Titulo del Post
             </label>
             <br>
             <input
@@ -16,26 +16,26 @@
               id="title"
               type="text"
               v-model="title"
-              placeholder="Post Title"
+              placeholder="Titulo del Post"
               required
             />
           </div>
           <div>
             <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
-              Post Content
+              Contenido del Post
             </label>
             <br>
             <textarea
               id="description"
               v-model="description"
-              placeholder="Enter Post Content"
+              placeholder="Ingresa la descripcion del post"
               class="shadow appearance-none border rounded w-full py-4 px-5 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
               required
             ></textarea>
           </div>
           <div class="m-2">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="date">
-              Date
+              Fecha
             </label>
             <br>
             <input
@@ -43,7 +43,7 @@
               id="date"
               type="text"
               v-model="date"
-              placeholder="Post date"
+              placeholder="22-03-2022"
               @blur="validateDate"
               required
             />
@@ -56,8 +56,8 @@
               v-model="postType"
               class="p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 w-full"
             >
-              <option value="announcement">Announcement</option>
-              <option value="activity">Activity</option>
+              <option value="announcement">Anuncio</option>
+              <option value="activity">Actividad</option>
             </select>
           </div>
           <br>
@@ -83,12 +83,12 @@
         <table class="mt-5 w-full table-auto border border-gray-800 bg-white">
       <thead>
         <tr>
-          <th class="px-4 py-2">Title</th>
-          <th class="px-4 py-2">Content</th>
-          <th class="px-4 py-2">Type</th>
-          <th class="px-4 py-2">Date</th>
-          <th class="px-4 py-2">Edit</th>
-          <th class="px-4 py-2">Delete</th>
+          <th class="px-4 py-2">Titulo</th>
+          <th class="px-4 py-2">Descripcion</th>
+          <th class="px-4 py-2">Tipo</th>
+          <th class="px-4 py-2">Fecha</th>
+          <th class="px-4 py-2">Editar</th>
+          <th class="px-4 py-2">Borrar</th>
         </tr>
       </thead>
       <tbody>
@@ -169,7 +169,7 @@ export default {
     // Simple date validation using regular expression
     const dateRegex = /^\d{2}-\d{2}-\d{4}$/; // Updated date format regex
     if (!dateRegex.test(this.date)) {
-      this.errorMessage = "Please enter a valid date in the format DD-MM-YYYY.";
+      this.errorMessage = "Por favor, ingrese una fecha valida en el formato DD-MM-YYYY.";
       return;
     }
 
@@ -177,13 +177,13 @@ export default {
     const parsedMonth = parseInt(month, 10);
 
     if (parsedMonth > 12) {
-      this.errorMessage = "Invalid month. Month should be between 01 and 12.";
+      this.errorMessage = "Mes invalido, debe de ser entre 01 y 12.";
       return;
     }
 
     const isValidDate = !isNaN(Date.parse(`${year}-${month}-${day}`));
     if (!isValidDate) {
-      this.errorMessage = "Invalid date. Please enter a valid date.";
+      this.errorMessage = "Fecha invalida. Por favor, ingrese una fecha valida.";
       return;
     }
 
@@ -199,14 +199,14 @@ export default {
 
     // Check for title and description validity
     if (this.title.length === 0 || this.description.length === 0) {
-      this.errorMessage = "Title and Content cannot be empty";
+      this.errorMessage = "El titulo y la descripcion no pueden estar vacios";
       return;
     }
 
      // Check for date validity
      const dateRegex = /^\d{2}-\d{2}-\d{4}$/;
       if (!dateRegex.test(this.date)) {
-        this.errorMessage = "Please enter a valid date in the format DD-MM-YYYY.";
+        this.errorMessage = "Por favor, ingrese una fecha valida con el formato DD-MM-YYYY.";
         return;
       }
 
@@ -220,7 +220,7 @@ export default {
     };
 
     try {
-      const response = await axios.post('https://puerto-tirol-branch-server.onrender.com/create', newPost, {
+      const response = await axios.post('http://localhost:3000/create', newPost, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -239,7 +239,7 @@ export default {
         this.errorMessage = response.data.error;
       }
     } catch (error) {
-      this.errorMessage = 'Failed to create post';
+      this.errorMessage = 'Ha fallado la creacion del post';
     }
   }
 },
@@ -247,7 +247,7 @@ export default {
 
     // Fetch all posts from the backend API
     async fetchPosts() {
-      const response = await axios.get("https://puerto-tirol-branch-server.onrender.com/");
+      const response = await axios.get("http://localhost:3000/");
 
       if (response.status === 200) {
         // The posts were fetched successfully
@@ -259,7 +259,7 @@ export default {
     },
   async updatePost() {
   if (this.title.length === 0 || this.description.length === 0) {
-    this.errorMessage = "Title and Content cannot be empty";
+    this.errorMessage = "Titulo y descipcion no pueden estar vacios";
     return;
   }
 
@@ -273,7 +273,7 @@ export default {
 
   try {
     const response = await axios.put(
-      `https://puerto-tirol-branch-server.onrender.com/update/${this.editingPost._id}`, // Use the correct URL with the _id
+      `http://localhost:3000/update/${this.editingPost._id}`, // Use the correct URL with the _id
       updatedPost,
       {
         headers: {
@@ -293,7 +293,7 @@ export default {
       this.errorMessage = response.data.error;
     }
   } catch (error) {
-    this.errorMessage = "Failed to update post";
+    this.errorMessage = "La actualizacion del post ha fallado";
   }
 },
 
@@ -301,7 +301,7 @@ export default {
     try {
       const postId = this.posts[index]._id;
       const response = await axios.delete(
-        `https://puerto-tirol-branch-server.onrender.com/delete/${postId}`
+        `http://localhost:3000/delete/${postId}`
       );
 
       if (response.status === 200) {
@@ -310,7 +310,7 @@ export default {
         this.errorMessage = response.data.error;
       }
     } catch (error) {
-      this.errorMessage = "Failed to delete post";
+      this.errorMessage = "La eliminacion del post ha fallado";
     }
   },
   },
@@ -329,6 +329,10 @@ export default {
 html {
   max-height: 100vh;
   scroll-behavior: smooth;
+}
+.container-post-creation{
+  padding: 2rem;
+  margin: 0 auto;
 }
 .pointer {
   cursor: pointer;

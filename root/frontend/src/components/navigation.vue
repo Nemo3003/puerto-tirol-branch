@@ -1,6 +1,6 @@
 <template>
   
-  <nav class="navbar text-center navbar-expand-lg navbar-light fixed-top " style="background-color: #001F3F;">
+  <nav class="navbar text-2xl text-center navbar-expand-lg fixed-top p-4" style="background-color: #0074D9;">
     <br>
     <button @click="isMenuCollapsed = !isMenuCollapsed" class="navbar-toggler bg-white mx-3" type="button">
       <span class="navbar-toggler-icon"></span>
@@ -8,24 +8,23 @@
     <div :class="isMenuCollapsed ? 'collapse' : 'show'" @click.outside="isMenuCollapsed = true" class="navbar-collapse">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0 mx-auto">
       <li class="nav-item active">
-        <router-link to="/" class="nav-link " style="color: #FFFFFF;">Home</router-link>
+        <router-link to="/" class="nav-link " >Inicio</router-link>
       </li>
-      <li class="nav-item">
-        <router-link to="/posts" class="nav-link" style="color: #FFFFFF;">Posts</router-link>
+      <li class="nav-item ">
+        <router-link to="/posts" class="nav-link " >Anuncios y Actividades</router-link>
       </li>
         <li class="nav-item">
-          <router-link to="/post-creation" class="nav-link" style="color: #FFFFFF;" v-if="isLoggedIn">Posts - admin</router-link>
+          <router-link to="/post-creation" class="nav-link"  v-if="isLoggedIn">Posts - admin</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/about" class="nav-link" style="color: #FFFFFF;">About</router-link>
+          <router-link to="/about" class="nav-link" >Acerca de</router-link>
         </li>
         <li class="nav-item" v-if="!isLoggedIn">
-          <router-link to="/login" class="nav-link" style="color: #FFFFFF;">Login</router-link>
+          <router-link to="/login" class="nav-link" >Iniciar Sesion</router-link>
         </li>
-
         <li class="nav-item">
           <button v-if="isLoggedIn" @click="handleSignOut" class="btn btn-secondary nav-link" style="color: #FFFFFF;">
-            Sign out
+            Cerrar Sesion
           </button>
         </li>
       </ul>
@@ -33,7 +32,7 @@
   </nav>
     
     <router-view />
-    <footer class="bg-light text-center text-lg-start fixed-bottom" style="background-color: #F5F5F5;">
+    <footer class="text-center text-lg-start fixed-bottom" style="background-color: #FF851B;">
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
       <p class="text-dark" style="color: #333333;">&copy; 2023 Ulises Mariano Melgarejo</p>
@@ -67,3 +66,14 @@ const handleSignOut = () => {
     });
 }
 </script>
+<style scoped>
+.nav-link {
+  color: #FFFFFF; 
+  font-size: large;
+}
+.nav-link:hover {
+  color: #d7da46; 
+  font-size: larger;
+}
+
+</style>

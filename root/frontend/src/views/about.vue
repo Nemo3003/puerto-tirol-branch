@@ -1,5 +1,5 @@
 <template>
-  <div class="container text-center">
+  <div class="container text-center container-posts">
     <div class="">
       <div class="container">
         <h1 class="display-4 p-4">About the Web </h1>
@@ -52,6 +52,9 @@ export default {
 <style scoped>
 html {
   overflow: hidden;
+}
+.container-posts {
+  padding: 2rem;
 }
 
 body {

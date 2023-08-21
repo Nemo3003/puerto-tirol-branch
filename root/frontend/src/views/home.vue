@@ -1,12 +1,10 @@
 <template>
   <section class="page-container">
     <br>
-    <h1 class="page-title">Welcome to Puerto Tirol Branch</h1>
+    <h1 class="page-title">Bienvenidos a la Rama Puerto Tirol</h1>
     
     <p class="page-description">
-      Discover the latest activities and announcements happening in the Puerto Tirol Branch of the Church of
-      Jesus Christ of Latter-day Saints. Stay connected with the community and be part of uplifting and
-      meaningful events that strengthen your faith and promote service and love for others.
+      Descubre las últimas actividades y anuncios que ocurren en la Rama Puerto Tirol de La Iglesia de Jesucristo de los Santos de los Últimos Días. Mantente conectado con la comunidad y forma parte de eventos edificantes y significativos que fortalecen tu fe y promueven el servicio y el amor hacia los demás.
     </p>
     <hr>
     <div class="container">
@@ -22,14 +20,14 @@
 
         <!-- Latest Activities -->
         <div>
-          <h2 class="section-title">Latest Activities</h2>
+          <h2 class="section-title">Últimas Actividades</h2>
           <div class="card-container">
             <!-- Loop through activity posts -->
             <div v-for="(activity, index) in filteredPosts('activity')" :key="index" class="card">
               <h3 class="card-title">{{ activity.title }}</h3>
               <p class="card-content">{{ truncateDescription(activity.description) }}</p>
               <router-link :to="`/post/${activity._id}`" class="activity-link">
-                Learn More
+                Más Información
               </router-link>
             </div>
           </div>
@@ -37,14 +35,14 @@
 
         <!-- Latest Announcements -->
         <div>
-          <h2 class="section-title">Latest Announcements</h2>
+          <h2 class="section-title">Últimos Anuncios</h2>
           <div class="card-container">
             <!-- Loop through announcement posts -->
             <div v-for="(announcement, index) in filteredPosts('announcement')" :key="index" class="card">
               <h3 class="card-title">{{ announcement.title }}</h3>
               <p class="card-content">{{ truncateDescription(announcement.description) }}</p>
               <router-link :to="`/post/${announcement._id}`" class="announcement-link">
-                Learn More
+                Más Información
               </router-link>
             </div>
           </div>

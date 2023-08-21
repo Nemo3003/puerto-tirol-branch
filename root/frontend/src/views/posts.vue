@@ -1,23 +1,23 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
+  <div class="container mx-auto px-4 py-8 container-posts">
     <h1 class="text-3xl font-semibold p-4">All Posts</h1>
     <div>
-      <label for="filter">Filter by Type:</label>
+      <label for="filter">Filtrar por tipo:</label>
       <select id="filter" v-model="selectedType">
-        <option value="">All</option>
-        <option value="announcement">Announcement</option>
-        <option value="activity">Activity</option>
+        <option value="">Todos</option>
+        <option value="announcement">Anuncios</option>
+        <option value="activity">Actividades</option>
       </select>
     </div>
     <div class="cards">
       <div v-for="(post, index) in filteredPosts" :key="index" class="card">
         <h2 class="card-title">{{ post.title }}</h2>
-        <h6>Description</h6>
+        <h6>Descripcion</h6>
         <p class="card-content">{{ post.description }}</p>
-        <h6>Date</h6>
+        <h6>Fecha</h6>
         <p class="card-content">{{ post.date }}</p>
         <router-link :to="`/post/${post._id}`" class="card-link">
-          Read More
+          Más Información
         </router-link>
       </div>
     </div>
@@ -78,6 +78,9 @@ export default {
 
 
 <style scoped>
+.container-posts {
+  padding: 2rem;
+}
 .cards {
   display: flex;
   flex-wrap: wrap;
