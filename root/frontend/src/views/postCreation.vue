@@ -220,7 +220,7 @@ export default {
     };
 
     try {
-      const response = await axios.post('http://localhost:3000/create', newPost, {
+      const response = await axios.post('https://puerto-tirol-branch-server.onrender.com/create', newPost, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -247,7 +247,7 @@ export default {
 
     // Fetch all posts from the backend API
     async fetchPosts() {
-      const response = await axios.get("http://localhost:3000/");
+      const response = await axios.get("https://puerto-tirol-branch-server.onrender.com/");
 
       if (response.status === 200) {
         // The posts were fetched successfully
@@ -273,7 +273,7 @@ export default {
 
   try {
     const response = await axios.put(
-      `http://localhost:3000/update/${this.editingPost._id}`, // Use the correct URL with the _id
+      `https://puerto-tirol-branch-server.onrender.com/update/${this.editingPost._id}`, // Use the correct URL with the _id
       updatedPost,
       {
         headers: {
@@ -301,7 +301,7 @@ export default {
     try {
       const postId = this.posts[index]._id;
       const response = await axios.delete(
-        `http://localhost:3000/delete/${postId}`
+        `https://puerto-tirol-branch-server.onrender.com/delete/${postId}`
       );
 
       if (response.status === 200) {

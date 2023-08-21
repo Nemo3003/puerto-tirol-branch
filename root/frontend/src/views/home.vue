@@ -84,7 +84,7 @@ export default {
     },
     
     async fetchPosts() {
-  const response = await axios.get("http://localhost:3000/");
+  const response = await axios.get("https://puerto-tirol-branch-server.onrender.com/");
 
   if (response.status === 200) {
     // Group posts by type
