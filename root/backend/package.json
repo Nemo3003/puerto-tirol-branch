@@ -8,7 +8,6 @@
     "swagger-autogen": "node swagger.js",
     "start": "node index.js",
     "test": "jest --coverage --silent --runInBand",
-    "build": "index.js build --omit=dev"
   },
   "keywords": [],
   "author": "",
