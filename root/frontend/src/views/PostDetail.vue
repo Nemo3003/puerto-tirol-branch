@@ -46,7 +46,7 @@ export default {
       const postId = this.$route.params.id;
 
       try {
-        const response = await axios.get(`https://puerto-tirol-branch-server.onrender.com/post/${postId}`);
+        const response = await axios.get(`https://puerto-tirol-branchs-production.up.railway.app/post/${postId}`);
         this.post = response.data;
       } catch (error) {
         console.error("Error fetching post:", error);
