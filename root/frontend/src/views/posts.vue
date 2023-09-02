@@ -48,7 +48,7 @@ export default {
   methods: {
     async fetchPosts() {
       try {
-        const response = await axios.get("https://puerto-tirol-branchs-production.up.railway.app//");
+        const response = await axios.get("https://puerto-tirol-branchs-production.up.railway.app/");
 
         if (response.status === 200) {
           // The posts were fetched successfully
