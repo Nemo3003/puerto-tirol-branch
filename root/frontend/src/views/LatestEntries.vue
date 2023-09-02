@@ -39,7 +39,7 @@ export default {
     },
     
     async fetchPosts() {
-  const response = await axios.get("https://puerto-tirol-branch-server.onrender.com/");
+  const response = await axios.get("https://puerto-tirol-branchs-production.up.railway.app/");
 
   if (response.status === 200) {
     // Group posts by type
