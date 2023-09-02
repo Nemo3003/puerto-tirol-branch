@@ -1,6 +1,6 @@
 <template>
     <div class="mb-4 p-4">
-      <h2 class="text-2xl font-bold mb-4">Latest Entries</h2>
+      <h2 class="text-2xl font-bold mb-4">Ultimas Entradas</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <div v-for="(post, index) in posts" :key="index" class="bg-white p-4 m-4 rounded shadow">
           <h3 class="text-lg font-semibold">{{ post.title }}</h3>
