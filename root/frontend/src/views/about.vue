@@ -40,6 +40,32 @@
 
     <!-- Project Timeline - Optional -->
     <!-- Include the project timeline here if desired -->
+
+    <!-- Organigrama -->
+    <div class="organigrama">
+      <div class="estaca">
+        <h1>Estaca</h1>
+        <ul>
+          <li>Presidente de estaca</li>
+          <li>Primera consejera</li>
+          <li>Segunda consejera</li>
+          <li>Alto consejo</li>
+          <li>Obispo</li>
+        </ul>
+      </div>
+
+      <div class="rama">
+        <h1>Rama</h1>
+        <ul>
+          <li>Obispo</li>
+          <li>Primera consejera</li>
+          <li>Segunda consejera</li>
+          <li>Sumo sacerdote</li>
+          <li>Élderes</li>
+          <li>Diáconos</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -66,5 +92,25 @@ body {
 }
 ul{
   list-style-type: none;  
+}
+
+.organigrama {
+  display: flex;
+  justify-content: space-around;
+}
+
+.estaca, .rama {
+  width: 50%;
+  padding: 1rem;
+  border: 1px solid black;
+}
+
+.estaca h1, .rama h1 {
+  text-align: center;
+}
+
+.estaca ul, .rama ul {
+  list-style-type: none;
+  padding-left: 1rem;
 }
 </style>
