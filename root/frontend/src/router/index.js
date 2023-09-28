@@ -1,5 +1,6 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { createRouter, createWebHistory } from "vue-router";
+import LiderDetails from "../components/LiderDetails";
 
 const router = createRouter({
     // The session will remain, even if the user changes tabs
@@ -16,6 +17,12 @@ const router = createRouter({
         {path: "/about", component: () => import("../views/about.vue")},
         {path: "/posts", component: () => import("../views/posts.vue")},
         { path: "/post/:id", component: () => import("../views/PostDetail.vue")},
+        {
+          path: '/lideres/:nombreLider',
+          name: 'LiderDetails',
+          component: LiderDetails,
+          props: true, // Permite pasar el parámetro como prop al componente
+        },
     ],
 });
 
